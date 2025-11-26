@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Sumador Binario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 5px solid #1e3a8a;
+        }
+
+        .university-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #1e3a8a;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        nav {
+            background: #1e3a8a;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn.active {
+            background: white;
+            color: #1e3a8a;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .section {
+            display: none;
+            padding: 50px 60px;
+            min-height: 600px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* PORTADA */
+        .portada {
+            text-align: center;
+            padding: 40px 0;
+            line-height: 2.5;
+        }
+
+        .portada-escudo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 40px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            color: white;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+            border: 5px solid #1e3a8a;
+        }
+
+        .portada h3 {
+            color: #1e3a8a;
+            font-size: 2.2em;
+            margin: 30px 0 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .portada h4 {
+            color: #374151;
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+            font-weight: 600;
+        }
+
+        .portada p {
+            color: #4b5563;
+            font-size: 1.15em;
+            margin: 12px 0;
+            font-family: 'Georgia', serif;
+        }
+
+        .portada .divider {
+            width: 150px;
+            height: 2px;
+            background: #3b82f6;
+            margin: 35px auto;
+        }
+
+        .portada-info {
+            display: inline-block;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .portada-info p {
+            margin: 15px 0;
+            padding-left: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* DOCUMENTOS */
+        .documents {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .doc-item {
+            background: #f9fafb;
+            padding: 25px 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .doc-item:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .doc-icon {
+            font-size: 3em;
+            min-width: 70px;
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        .doc-content {
+            flex: 1;
+        }
+
+        .doc-item strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+            font-family: 'Georgia', serif;
+        }
+
+        .doc-item p {
+            color: #6b7280;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* RESULTADOS */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .image-card {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 25px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .image-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1.3em;
+            font-family: 'Georgia', serif;
+        }
+
+        .image-card p {
+            color: #6b7280;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #f3f4f6;
+            padding: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.95em;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .nav-btn {
+                padding: 15px 20px;
+                font-size: 0.9em;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .image-card img {
+                height: 250px;
+            }
+
+            .portada h3 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="university-logo">🎓</div>
+            <h1>Instituto Tecnológico Superior del Occidente del Estado de Hidalgo</h1>
+            <p class="subtitle">Ingeniería Tecnologías de la Información y las Comunicaciones</p>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" onclick="showSection('portada')">Portada</button>
+            <button class="nav-btn" onclick="showSection('documentos')">Documentos</button>
+            <button class="nav-btn" onclick="showSection('rD')">Resultados</button>
+        </nav>
+
+        <!-- PORTADA -->
+        <div id="portada" class="section active">
+            <div class="portada">
+                <h3>DISEÑO Y CONSTRUCCIÓN DE UN PROTOTIPO DIDÁCTICO DE SUMADOR BINARIO DE 2 BITS</h3>
+                
+                <div class="divider"></div>
+                
+                <div class="portada-info">
+                    <p><strong>INSTITUCIÓN:</strong> Instituto Tecnológico Superior del Occidente del Estado de Hidalgo</p>
+                    <p><strong>NOMBRES DE LOS ALUMNOS:</strong><br>
+                    Cerón Sánchez Victor<br>
+                    Reyes Carro Evelyn Monserrat<br>
+                    Rufino Velázquez Luis Osvaldo<br>
+                    Santiago Rendón Jessica Aketzali</p>
+                    <p><strong>FACULTAD:</strong> Tecnologías de la Información y las Comunicaciones</p>
+                </div>
+                
+                <div class="divider"></div>
+                <p><strong>26 de Noviembre del 2025</strong></p>
+            </div>
+        </div>
+
+        <!-- DOCUMENTOS -->
+        <div id="documentos" class="section">
+            <h2>Documentación del Proyecto</h2>
+            <div class="documents">
+                <a href="documentos/Plantilla del informe - borrador1.pdf" target="_blank" class="doc-item">
+                    <span class="doc-icon">📖</span>
+                    <div class="doc-content">
+                        <strong>Informe del Proyecto</strong>
+                        <p>Este es nuestro informe que se realizó para este proyecto.</p>
+                    </div>
+                </a>
+                
+                <a href="documentos/Fantastic Migelo.pdf" target="_blank" class="doc-item">
+                    <span class="doc-icon">📖</span>
+                    <div class="doc-content">
+                        <strong>Diagrama en Tinkercad</strong>
+                        <p>Este es el diagrama de Tinkercad que se obtuvo al realizar el circuito digital.</p>
+                    </div>
+                </a>
+                
+                <a href="documentos/Programa java  convertidor de binario  a decimal  y decimal  binario.pdf" target="_blank" class="doc-item">
+                    <span class="doc-icon">📊</span>
+                    <div class="doc-content">
+                        <strong>Programa Java</strong>
+                        <p>Este es el documento en el cual mostramos las capturas de pantalla de nuestro programa.</p>
+                    </div>
+                </a>
+               
+                
+            </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div id="rD" class="section">
+            <h2>Resultados</h2>
+            <div class="gallery">
+                <div class="image-card">
+                    <img src="imagenes/digital.png" alt="Circuito implementado">
+                    <h3>Figura 1. Implementación del Circuito (Digital)</h3>
+                    <p>Vista general del sumador binario de 2 bits implementado en protoboard, mostrando la distribución de componentes y conexiones principales.</p>
+                </div>
+                <div class="image-card">
+                    <img src="imagenes/PTD.jpeg" alt="Prototipo físico">
+                    <h3>Figura 2. Prototipo Físico</h3>
+                    <p>Vista del prototipo didáctico del sumador binario de 2 bits construido físicamente.</p>
+                </div>
+                <div class="image-card">
+                    <img src="imagenes/final.jpg" alt="Circuito final">
+                    <h3>Figura 3. Circuito Final</h3>
+                    <p>Vista completa del sumador binario de 2 bits implementado en protoboard, mostrando todas las conexiones y componentes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Instituto Tecnológico Superior del Occidente del Estado de Hidalgo</p>
+          
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
